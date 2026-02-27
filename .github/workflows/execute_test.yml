@@ -44,14 +44,6 @@ jobs:
         run: |
           poetry run rebot -d ./reports --merge ./reports/output.xml ./reports/rerun.xml
 
-      - name: Send report to commit
-        uses: joonvena/robotframework-reporter-action@v2.4
-        if: always()
-        with:
-          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
-          sha: ${{ github.sha }}
-          pull_request_id: ${{ github.event.number }}
-
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
