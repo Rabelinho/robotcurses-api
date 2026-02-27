@@ -1,0 +1,60 @@
+name: Execute Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  execute_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.14
+
+      - uses: snok/install-poetry@v1
+        with:
+          version: 2.2.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Install Dependencies
+        run: poetry install --no-root
+
+      - name: Execute Tests
+        id: execute_test
+        run: poetry run robot -d ./reports .
+        continue-on-error: true
+
+      - name: Execute Flaky Tests
+        if: steps.execute_test.outcome != 'success'
+        run: |
+          poetry run robot -d ./reports --rerunfailed ./reports/output.xml --output rerun.xml .
+        continue-on-error: true
+
+      - name: Merge Test Reports
+        if: steps.execute_test.outcome != 'success'
+        run: |
+          poetry run rebot -d ./reports --merge ./reports/output.xml ./reports/rerun.xml
+
+      - name: Send report to commit
+        uses: joonvena/robotframework-reporter-action@v2.4
+        if: always()
+        with:
+          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ github.sha }}
+          pull_request_id: ${{ github.event.number }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: reports

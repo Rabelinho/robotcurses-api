@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.14.0 on win32)" generated="2026-02-24T18:53:52.150053" rpa="false" schemaversion="5">
+<suite id="s1" name="Robotcurses-Api" source="C:\Workspace\robotcurses-api">
+<suite id="s1-s1" name="Tests" source="C:\Workspace\robotcurses-api\tests">
+<suite id="s1-s1-s1" name="Carrinhos" source="C:\Workspace\robotcurses-api\tests\carrinhos.robot">
+<test id="s1-s1-s1-t1" name="Criar carrinho" line="12">
+<kw name="Create User and Login" owner="utils" type="SETUP">
+<kw name="Create Serverest Session" owner="session">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-02-24T18:53:56.001990" level="INFO">Creating Session using : alias=Serverest, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=Serverest</arg>
+<arg>url=https://serverest.dev</arg>
+<arg>disable_warnings=${True}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-02-24T18:53:56.000569" elapsed="0.006645"/>
+</kw>
+<status status="PASS" start="2026-02-24T18:53:55.998059" elapsed="0.009905"/>
+</kw>
+<kw name="POST Usuarios" owner="post_usuarios">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-24T18:53:56.014630" level="INFO">${body} = {'nome': 'Rabelos', 'email': 'lsutton@example.org', 'password': '1234', 'administrador': 'true'}</msg>
+<var>${body}</var>
+<arg>nome=Rabelos</arg>
+<arg>email=${email}</arg>
+<arg>password=1234</arg>
+<arg>administrador=true</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.012261" elapsed="0.003699"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-24T18:53:56.606054" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '96', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Rabelos", "email": "lsutton@example.org", "password": "1234", "administrador": "true"}' 
+ </msg>
+<msg time="2026-02-24T18:53:56.607659" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '92b083517aacb8d52cbdf5cec9559c7e;o=1', 'date': 'Tue, 24 Feb 2026 21:53:56 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "M01uXQQQNvt3STe2"
+} 
+ </msg>
+<msg time="2026-02-24T18:53:56.609047" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>alias=Serverest</arg>
+<arg>url=/usuarios</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.017826" elapsed="0.591937"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-24T18:53:56.610525" elapsed="0.000711"/>
+</return>
+<arg>email=${FakerData.email()}</arg>
+<status status="PASS" start="2026-02-24T18:53:56.010079" elapsed="0.602054"/>
+</kw>
+<kw name="Login On Serverest" owner="login">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-24T18:53:56.617308" level="INFO">${body} = {'email': 'lsutton@example.org', 'password': '1234'}</msg>
+<var>${body}</var>
+<arg>email=${email}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.615552" elapsed="0.002279"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-24T18:53:56.784659" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '52', 'Content-Type': 'application/json'} 
+ body=b'{"email": "lsutton@example.org", "password": "1234"}' 
+ </msg>
+<msg time="2026-02-24T18:53:56.785666" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '87121931961907bc2cbdf5cec95594c8', 'date': 'Tue, 24 Feb 2026 21:53:56 GMT', 'server': 'Google Frontend', 'Content-Length': '272'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxzdXR0b25AZXhhbXBsZS5vcmciLCJwYXNzd29yZCI6IjEyMzQiLCJpYXQiOjE3NzE5NzAwMzYsImV4cCI6MTc3MTk3MDYzNn0.JzlCz67yHXbzTIDCjP3Jmse2VBAAs-GiStfR4HMcABk"
+} 
+ </msg>
+<msg time="2026-02-24T18:53:56.786500" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=serverest</arg>
+<arg>url=/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.618330" elapsed="0.170973"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-24T18:53:56.792582" level="INFO">${header} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxzdXR0b25AZXhhbXBsZS5vcmciLCJwYXNzd29yZCI6IjEyMzQiLCJpYXQiOjE3NzE5NzAwMzYsImV4cCI6MTc3MTk3MDYzNn0.JzlCz67yHXbzTIDCjP3Jmse2V...</msg>
+<var>${header}</var>
+<arg>Authorization=${response.json()['authorization']}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.790020" elapsed="0.003230"/>
+</kw>
+<kw name="Update Session" owner="RequestsLibrary">
+<arg>alias=serverest</arg>
+<arg>headers=${header}</arg>
+<doc>Updates HTTP Session Headers and Cookies.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.794581" elapsed="0.002193"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-24T18:53:56.797227" elapsed="0.000576"/>
+</return>
+<arg>email=${FakerData.email()}</arg>
+<arg>password=1234</arg>
+<status status="PASS" start="2026-02-24T18:53:56.613262" elapsed="0.185137"/>
+</kw>
+<status status="PASS" start="2026-02-24T18:53:55.995992" elapsed="0.803327"/>
+</kw>
+<kw name="POST Produtos" owner="post_produtos">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-24T18:53:56.806838" level="INFO">${body} = {'nome': 'produto_465', 'preco': '27', 'descricao': 'MOUSE', 'quantidade': '100'}</msg>
+<var>${body}</var>
+<arg>nome=${nome}</arg>
+<arg>preco=${preco}</arg>
+<arg>descricao=${descricao}</arg>
+<arg>quantidade=${quantidade}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.805027" elapsed="0.002326"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-24T18:53:56.975431" level="INFO">POST Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxzdXR0b25AZXhhbXBsZS5vcmciLCJwYXNzd29yZCI6IjEyMzQiLCJpYXQiOjE3NzE5NzAwMzYsImV4cCI6MTc3MTk3MDYzNn0.JzlCz67yHXbzTIDCjP3Jmse2VBAAs-GiStfR4HMcABk', 'Content-Length': '81', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "produto_465", "preco": "27", "descricao": "MOUSE", "quantidade": "100"}' 
+ </msg>
+<msg time="2026-02-24T18:53:56.976439" level="INFO">POST Response : url=https://serverest.dev/produtos 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'bc0c97472682ada52cbdf5cec9559fde', 'date': 'Tue, 24 Feb 2026 21:53:57 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "IYIZ9awGavMWaqeO"
+} 
+ </msg>
+<msg time="2026-02-24T18:53:56.977175" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>alias=serverest</arg>
+<arg>url=/produtos</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.808173" elapsed="0.169985"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-24T18:53:56.978750" elapsed="0.001008"/>
+</return>
+<msg time="2026-02-24T18:53:56.980434" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${product_name}</arg>
+<arg>27</arg>
+<arg>MOUSE</arg>
+<arg>100</arg>
+<status status="PASS" start="2026-02-24T18:53:56.802127" elapsed="0.178865"/>
+</kw>
+<kw name="POST Carrinho" owner="post_carrinho">
+<kw name="Contracts Post Carrinhos" owner="carrinho">
+<msg time="2026-02-24T18:53:56.987930" level="INFO">${body} = {'produtos': [{'idProduto': 'IYIZ9awGavMWaqeO', 'quantidade': '100'}]}</msg>
+<var>${body}</var>
+<arg>id_produto=${id_produtos}</arg>
+<arg>quantidade=${quantidade}</arg>
+<status status="PASS" start="2026-02-24T18:53:56.984732" elapsed="0.004104"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-24T18:53:57.158138" level="INFO">POST Request : url=https://serverest.dev/carrinhos 
+ path_url=/carrinhos 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxzdXR0b25AZXhhbXBsZS5vcmciLCJwYXNzd29yZCI6IjEyMzQiLCJpYXQiOjE3NzE5NzAwMzYsImV4cCI6MTc3MTk3MDYzNn0.JzlCz67yHXbzTIDCjP3Jmse2VBAAs-GiStfR4HMcABk', 'Content-Length': '70', 'Content-Type': 'application/json'} 
+ body=b'{"produtos": [{"idProduto": "IYIZ9awGavMWaqeO", "quantidade": "100"}]}' 
+ </msg>
+<msg time="2026-02-24T18:53:57.159127" level="INFO">POST Response : url=https://serverest.dev/carrinhos 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '6fb072d3d2b574032cbdf5cec9559e88', 'date': 'Tue, 24 Feb 2026 21:53:57 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "PqIzZWjW1PQGxhR3"
+} 
+ </msg>
+<msg time="2026-02-24T18:53:57.159965" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>alias=serverest</arg>
+<arg>url=/carrinhos</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-24T18:53:56.989635" elapsed="0.171437"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-24T18:53:57.161707" elapsed="0.000746"/>
+</return>
+<arg>id_produtos=${response.json()['_id']}</arg>
+<arg>quantidade=100</arg>
+<status status="PASS" start="2026-02-24T18:53:56.982554" elapsed="0.180835"/>
+</kw>
+<kw name="Assert POST Carrinhos" owner="post_carrinho">
+<if>
+<branch type="IF" condition="${response.status_code} == ${201}">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()['message']}</arg>
+<arg>${message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-24T18:53:57.172052" elapsed="0.002382"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-02-24T18:53:57.176686" level="INFO">Length is 16.</msg>
+<arg>${response.json()['_id']}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-02-24T18:53:57.175087" elapsed="0.002152"/>
+</kw>
+<status status="PASS" start="2026-02-24T18:53:57.169516" elapsed="0.008021"/>
+</branch>
+<branch type="ELSE IF" condition="${response.status_code} == ${400} or ${response.status_code} == ${401}">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()['message']}</arg>
+<arg>${message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-02-24T18:53:57.178543" elapsed="0.000729"/>
+</kw>
+<status status="NOT RUN" start="2026-02-24T18:53:57.177694" elapsed="0.001964"/>
+</branch>
+<status status="PASS" start="2026-02-24T18:53:57.169304" elapsed="0.010512"/>
+</if>
+<arg>${response}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<status status="PASS" start="2026-02-24T18:53:57.167525" elapsed="0.012473"/>
+</kw>
+<status status="PASS" start="2026-02-24T18:53:55.978129" elapsed="1.204150"/>
+</test>
+<status status="PASS" start="2026-02-24T18:53:52.414832" elapsed="4.786478"/>
+</suite>
+<status status="PASS" start="2026-02-24T18:53:52.385787" elapsed="4.844678"/>
+</suite>
+<status status="PASS" start="2026-02-24T18:53:52.169532" elapsed="5.072949"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Robotcurses-Api" id="s1" pass="1" fail="0" skip="0">Robotcurses-Api</stat>
+<stat name="Tests" id="s1-s1" pass="1" fail="0" skip="0">Robotcurses-Api.Tests</stat>
+<stat name="Carrinhos" id="s1-s1-s1" pass="1" fail="0" skip="0">Robotcurses-Api.Tests.Carrinhos</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

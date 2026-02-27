@@ -1,0 +1,20 @@
+[project]
+name = "robotcurses-api"
+version = "0.1.0"
+description = "Testes de API com Robot Framework"
+authors = [
+    {name = "Rabelinho",email = "rabelopedro35@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "robotframework (>=7.3.2,<8.0.0)",
+    "robotframework-requests (>=0.9.7,<0.10.0)",
+    "faker (>=40.1.2,<41.0.0)",
+    "pyyml (>=0.0.2,<0.0.3)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
